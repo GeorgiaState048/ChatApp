@@ -40,7 +40,7 @@ class _PostMessageState extends State<PostMessage> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SplashScreen(),
+                  builder: (context) => HomePage(),
                 ));
           }),
           Padding(

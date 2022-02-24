@@ -9,7 +9,6 @@ enum ApplicationLoginState {
   password,
   loggedIn,
   Admin,
-  //newAccount,
   newerEmail,
 }
 
@@ -24,7 +23,6 @@ class Authentication extends StatelessWidget {
     required this.registerAccount,
     required this.signOut,
     required this.startRegisterFlow,
-    //required this.newAccount,
     required this.newEmail,
   });
 
@@ -32,12 +30,6 @@ class Authentication extends StatelessWidget {
     String email,
     void Function(Exception e) error,
   ) newEmail;
-  // final void Function(
-  //   String email,
-  //   String displayName,
-  //   String password,
-  //   void Function(Exception e) error,
-  // ) newAccount;
   final ApplicationLoginState loginState;
   final String? email;
   final void Function() startLoginFlow;
@@ -94,9 +86,6 @@ class Authentication extends StatelessWidget {
       case ApplicationLoginState.loggedOut:
         return Column(
           children: <Widget>[
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 24, bottom: 8),
-
             new StyledButton(
               onPressed: () {
                 startLoginFlow();
@@ -127,25 +116,6 @@ class Authentication extends StatelessWidget {
         return EmailForm(
             callback: (email) => newEmail(
                 email, (e) => _showErrorDialog(context, 'Invalid email', e)));
-      // case ApplicationLoginState.newAccount:
-      //   return RegisterForm(
-      //     email: email!,
-      //     cancel: () {
-      //       cancelRegistration();
-      //     },
-      //     registerAccount: (
-      //       email,
-      //       displayName,
-      //       password,
-      //     ) {
-      //       registerAccount(
-      //           email,
-      //           displayName,
-      //           password,
-      //           (e) =>
-      //               _showErrorDialog(context, 'Failed to create account', e));
-      //     },
-      //   );
       case ApplicationLoginState.register:
         return RegisterForm(
           email: email!,

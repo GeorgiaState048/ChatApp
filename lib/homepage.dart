@@ -7,8 +7,8 @@ import 'app_state.dart';
 import 'adminMessages.dart';
 import 'customer_messages.dart';
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

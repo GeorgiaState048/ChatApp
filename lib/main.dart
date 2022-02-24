@@ -29,7 +29,7 @@ class App extends StatelessWidget {
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const SplashScreen(),
+      home: const HomePage(),
     );
   }
 }

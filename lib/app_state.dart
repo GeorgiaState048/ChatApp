@@ -25,9 +25,8 @@ class ApplicationState extends ChangeNotifier {
     FirebaseAuth.instance.userChanges().listen((user) {
       //listener to check login state
       if (user != null) {
-        //_loginState = ApplicationLoginState.loggedIn;
         FirebaseFirestore
-            .instance //queries all the documents in the 'attendees' collection where the 'attending' value is true
+            .instance //queries all the documents in the 'users' collection where the 'uid' is the current user's id
             .collection('users')
             .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
             .snapshots()
@@ -40,7 +39,6 @@ class ApplicationState extends ChangeNotifier {
           } else if (_roles == 'customer') {
             _loginState = ApplicationLoginState.loggedIn;
           }
-          //returns length of documents that were queried.
           notifyListeners();
         });
         _administrationMessage = FirebaseFirestore
@@ -50,17 +48,16 @@ class ApplicationState extends ChangeNotifier {
             .limit(100) //shows the two most recent documents in the Firebase
             .snapshots()
             .listen((snapshot) {
-          //listens to any updates to snapshot, which is 'guestbook' contents
+          //listens to any updates to snapshot, which is 'Messages' contents
           _adminMessages = [];
           _adminMessages1 = [];
           for (final document in snapshot.docs) {
-            //snapshot.docs() is a list of maps where each map contains a document in 'guestbook' along with the other key value pairs that were added to it.
-            print("I have data");
+            //snapshot.docs() is a list of maps where each map contains a document in 'Messages' along with the other key value pairs that were added to it.
             _adminMessages.add(
               PostedMessages(
                 time: document.data()['timestamp']
                     as int, //each map (in this example) has the following keys: 'text' 'timestamp' 'name' 'userId'
-                message: document.data()['text'] as String, //231 - 234
+                message: document.data()['text'] as String, 
               ),
             );
             _adminMessages1.add(
@@ -186,7 +183,7 @@ class ApplicationState extends ChangeNotifier {
       errorCallback(e);
     }
     return FirebaseFirestore
-        .instance //creates new document in collection called 'guestbook'
+        .instance //creates new document in collection called 'users'
         .collection('users')
         .add(<String, dynamic>{
       // the added document will consist of the following key value pairs:
@@ -206,7 +203,7 @@ class ApplicationState extends ChangeNotifier {
     var rng = Random();
 
     return FirebaseFirestore
-        .instance //creates new document in collection called 'guestbook'
+        .instance //creates new document in collection called 'Messages'
         .collection('Messages')
         .add(<String, dynamic>{
       // the added document will consist of the following key value pairs:
