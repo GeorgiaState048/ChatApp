@@ -1,4 +1,4 @@
-import 'dart:async'; 
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'src/widgets.dart';
@@ -35,14 +35,14 @@ class _PostMessageState extends State<PostMessage> {
         children: [
           // to here.
           FloatingActionButton(
-            child: Text("X"),
-            onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HomePage(),
-                ));
-          }),
+              child: Text("X"),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomePage(),
+                    ));
+              }),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Form(
@@ -98,8 +98,7 @@ class _PostMessageState extends State<PostMessage> {
             inputMessage();
           }),
       const SizedBox(height: 8),
-      for (var message in widget.messages)
-        Paragraph('${message.message}'),
+      for (var message in widget.messages) Paragraph('${message.message}'),
       const SizedBox(height: 8),
     ]);
   }

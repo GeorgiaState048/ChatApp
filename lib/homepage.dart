@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; 
+import 'package:provider/provider.dart';
 
+import 'chatPage.dart';
 import 'src/widgets.dart';
 import 'src/authentication.dart';
 import 'app_state.dart';
@@ -13,64 +14,21 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Fanpage App'),
-      ),
-      body: ListView(
-        children: <Widget>[
-          // const SizedBox(height: 8),
-          // const IconAndDetail(Icons.calendar_today, 'February 22'),
-          // const IconAndDetail(Icons.location_city, 'Atlanta, GA'),
-          Consumer<ApplicationState>(
-            builder: (context, appState, _) => Authentication(
-              email: appState.email,
-              loginState: appState.loginState,
-              startLoginFlow: appState.startLoginFlow,
-              verifyEmail: appState.verifyEmail,
-              signInWithEmailAndPassword: appState.signInWithEmailAndPassword,
-              cancelRegistration: appState.cancelRegistration,
-              registerAccount: appState.registerAccount,
-              signOut: appState.signOut,
-              startRegisterFlow: appState.startRegisterFlow,
-              newEmail: appState.newEmail,
-            ),
+      body: ChatPage(),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.grey.shade600,
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            title: Text("Chats"),
           ),
-          const Divider(
-            height: 8,
-            thickness: 1,
-            indent: 8,
-            endIndent: 8,
-            color: Colors.grey,
-          ),
-          const Header("Welcome to the Fanpage App"),
-          const Paragraph(
-            'Make Sure you Sign in!',
-          ),
-          Consumer<ApplicationState>(
-            builder: (context, appState, _) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (appState.loginState == ApplicationLoginState.Admin) ...[            
-                  const Header('Admin Messages'),
-                  const Text('Click the + to add a message!'),
-                  const Text('Scroll down to see other messages!'),
-                  PostMessage(
-                    addMessage: (message) =>
-                        appState.addAdminMessages(message),
-                    messages: appState.theAdminMessages, // new
-                  ),
-                ],
-                if (appState.loginState == ApplicationLoginState.loggedIn) ...[
-                  const Header('Admin Messages'),
-                  const Text('Scroll down to see other messages!'),
-                  PostMessage1(
-                    addMessage: (message) =>
-                        appState.addAdminMessages(message),
-                    messages: appState.theAdminMessages1,
-                  ),
-                ],
-              ],
-            ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.logout_outlined),
+            title: Text("Logout"),
           ),
         ],
       ),
